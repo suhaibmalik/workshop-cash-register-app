@@ -15,13 +15,13 @@ type Totals struct {
 }
 
 func (s *Store) MarshalJSON() ([]byte, error) {
-	t := Totals{} // todo
+	t := Totals{} // todo:
 
 	return json.Marshal(&struct {
-		Items []item.Item `json:"items"`
-		Totals: Totals
+		Items  []item.Item `json:"items"`
+		Totals Totals
 	}{
-		LastSeen: s,
-		Totals:   t,
+		Items:  s,
+		Totals: t,
 	})
 }
