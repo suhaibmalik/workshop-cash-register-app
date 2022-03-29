@@ -13,7 +13,7 @@ func main() {
 
 	r.Use(middleware.Logger)
 
-	r.Get("/list", cart.HandleListItems)
+	r.Get("/list", cart.HandleListItems) // todo: fix the handlerFunc
 	// todo: add the other endpoints
 
 	http.ListenAndServe(":3000", r)

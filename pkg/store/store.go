@@ -2,12 +2,20 @@ package store
 
 import (
 	"encoding/json"
+	"sync"
 
 	"github.com/suhaibmalik/workshop-cash-register-app/pkg/item"
 )
 
 type Store struct {
-	Items []item.Item `json:"items"`
+	mu    sync.Mutex
+	Items []item.Item
+}
+
+func (s *Store) AddItem(item item.Item) {
+	s.mu.Lock()
+	// todo: add item
+	s.mu.Unlock()
 }
 
 type Totals struct {
@@ -15,13 +23,13 @@ type Totals struct {
 }
 
 func (s *Store) MarshalJSON() ([]byte, error) {
-	t := Totals{} // todo:
+	t := Totals{} // todo: calculate totals
 
 	return json.Marshal(&struct {
 		Items  []item.Item `json:"items"`
-		Totals Totals
+		Totals Totals      `json:"totals"`
 	}{
-		Items:  s,
+		Items:  s.Items,
 		Totals: t,
 	})
 }
